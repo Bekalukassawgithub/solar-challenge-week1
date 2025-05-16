@@ -7,8 +7,13 @@ cd solar-challenge-week1
 Create a Virtual Environment
 Using venv
 python -m venv .venv
+ HEAD
 source .venv/Scripts/activate  # (Git Bash/Windows)
 source .venv/bin/activate      # (Mac/Linux)
+
+source .venv/Scripts/activate  # (Git Bash/Windows)
+source .venv/bin/activate      # (Mac/Linux)
+setup-task
 Using Conda (Alternative)
 
 conda create --name my_env python=3.9
@@ -50,6 +55,7 @@ yaml
 name: Basic CI
 
 on:
+ HEAD
   push:
     branches:
       - main
@@ -75,7 +81,38 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+  push:
+    branches:
+      - main
+      - setup-task
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Verify Python version
+        run: python --version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+setup-task
+
 4. Key Performance Indicators (KPIs)
 Development Environment Setup: Ensures smooth installation and execution of dependencies.
 
+ HEAD
 Version Control & CI/CD: Maintains structured commits and automated testing with GitHub Actions.
+
+
+Version Control & CI/CD: Maintains structured commits and automated testing with GitHub Actions.
+setup-task
